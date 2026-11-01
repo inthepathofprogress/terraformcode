@@ -15,36 +15,30 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                dir('terraformcode') {
-                    withCredentials([aws(credentialsId: "${env.AWS_CREDENTIALS_ID}", 
-                                       accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                        sh 'terraform init -reconfigure'
-                    }
+                withCredentials([aws(credentialsId: "${env.AWS_CREDENTIALS_ID}", 
+                                   accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                                   secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh 'terraform init -reconfigure'
                 }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                dir('terraformcode') {
-                    withCredentials([aws(credentialsId: "${env.AWS_CREDENTIALS_ID}", 
-                                       accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                        sh 'terraform plan'
-                    }
+                withCredentials([aws(credentialsId: "${env.AWS_CREDENTIALS_ID}", 
+                                   accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                                   secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh 'terraform plan'
                 }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                dir('terraformcode') {
-                    withCredentials([aws(credentialsId: "${env.AWS_CREDENTIALS_ID}", 
-                                       accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                                       secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                        sh 'terraform apply -auto-approve'
-                    }
+                withCredentials([aws(credentialsId: "${env.AWS_CREDENTIALS_ID}", 
+                                   accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                                   secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh 'terraform apply -auto-approve'
                 }
             }
         }
