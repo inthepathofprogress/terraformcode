@@ -11,5 +11,5 @@ module "prod_ec2" {
   vpc_id        = module.prod_vpc.vpc_id
   subnet_id     = module.prod_vpc.public_subnet_id
   ami_id        = "ami-04a81a99f5ec58529" # Ubuntu 24.04 LTS AMI
-  instance_type = var.instance_type
+  instance_type = "t2.micro"
 }
